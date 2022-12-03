@@ -26,4 +26,14 @@ fn generate_data(n: usize, d: usize, n_labels: usize, seed: [u64; 2])
     (inputs, targets)
 }
     
-#[bench
+#[bench]
+fn bench_cp_train(b: &mut Bencher) {
+    let ncm = KNN::new(2);
+    let mut cp = CP::new(ncm, Some(0.1));
+
+    let n = 1000;
+    let d = 2;
+    let n_labels = 2;
+    let seed = [0, 0];
+
+    let (inputs, targets) = generate_d

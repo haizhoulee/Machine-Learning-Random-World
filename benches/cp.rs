@@ -48,4 +48,14 @@ fn bench_cp_predict(b: &mut Bencher) {
     let ncm = KNN::new(2);
     let mut cp = CP::new(ncm, Some(0.1));
 
-  
+    let n = 10;
+    let d = 1;
+    let n_labels = 2;
+    let seed = [0, 0];
+
+    let (inputs, targets) = generate_data(n, d, n_labels, seed);
+
+    let _ = cp.train(&inputs.view(), &targets.view());
+
+    b.iter(|| {
+        let _ = black_box(cp.predict_confidence(&inputs.view

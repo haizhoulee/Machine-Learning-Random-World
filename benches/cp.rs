@@ -58,4 +58,6 @@ fn bench_cp_predict(b: &mut Bencher) {
     let _ = cp.train(&inputs.view(), &targets.view());
 
     b.iter(|| {
-        let _ = black_box(cp.predict_confidence(&inputs.view
+        let _ = black_box(cp.predict_confidence(&inputs.view()).unwrap());
+    });
+}

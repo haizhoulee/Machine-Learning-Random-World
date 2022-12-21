@@ -87,3 +87,44 @@ fn main() {
             None => None,
         };
         // Not sure why we'd need smooth ICP, as it's mostly of theoretical
+        // interest (and implemented for transductive CP in cp-predict).
+        unimplemented!();
+    } else {
+        CP::new_inductive(ncm, n_labels, args.flag_epsilon)
+    };
+
+    // If testing file is specified, predict test data.
+    // Otherwise, use CP in on-line mode.
+    if let Some(testing_file) = args.arg_testing_file {
+        println!("Predicting {}", testing_file);
+        let (test_inputs, _) = load_data(&testing_file)
+                                    .expect("Failed to load data");
+        // Train on half, calibrate on the other half.
+        let n_train = (train_inputs.rows() / 2) as isize;
+
+        cp.train(&train_inputs.slice(s![..n_train, ..]),
+                 &train_targets.slice(s![..n_train]))
+          .expect("Failed to train the model");
+
+        cp.calibrate(&train_inputs.slice(s![n_train.., ..]),
+                     &train_targets.slice(s![n_train..]))
+          .expect("Failed to train the model");
+
+        // Predict and store results.
+        if let Some(_) = args.flag_epsilon {
+            let preds = cp.predict(&test_inputs.view())
+                          .expect("Failed to predict");
+            store_predictions(preds.view(), &args.arg_output_file, false)
+                .expect("Failed to store the output");
+        } else {
+            let preds = cp.predict_confidence(&test_inputs.view())
+                          .expect("Failed to predict");
+            store_predictions(preds.view(), &args.arg_output_file, false)
+                .expect("Failed to store the output");
+        }
+    } else {
+        // On-line version of ICP is not implemented. It's not clear to
+        // me whether it'd be useful at all.
+        unimplemented!();
+    }
+}

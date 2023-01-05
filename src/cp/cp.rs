@@ -361,3 +361,153 @@ impl<T, N> ConfidencePredictor<T> for CP<T, N>
     /// // Construct a deterministic CP with k-NN nonconformity measure (k=2).
     /// let ncm = KNN::new(2);
     /// let n_labels = 2;
+    /// let mut cp = CP::new(ncm, n_labels, Some(0.3));
+    /// let train_inputs = array![[0., 0.],
+    ///                           [1., 0.],
+    ///                           [0., 1.],
+    ///                           [1., 1.],
+    ///                           [2., 2.],
+    ///                           [1., 2.]];
+    /// let train_targets = array![0, 0, 0, 1, 1, 1];
+    /// let test_inputs = array![[2., 1.],
+    ///                          [2., 2.]];
+    ///
+    /// // Train and predict
+    /// cp.train(&train_inputs.view(), &train_targets.view())
+    ///   .expect("Failed prediction");
+    /// let preds = cp.predict(&test_inputs.view())
+    ///               .expect("Failed to predict");
+    /// assert!(preds == array![[false, true],
+    ///                         [false, true]]);
+    /// # }
+    /// ```
+    fn predict(&mut self, inputs: &ArrayView2<T>) -> LearningResult<Array2<bool>> {
+        let epsilon = self.epsilon.expect("Specify epsilon to perform a standard predict()");
+
+        let pvalues = self.predict_confidence(inputs).expect("Failed to predict p-values");
+
+        let preds = Array::from_iter(pvalues.iter()
+                                            .map(|p| *p > epsilon))
+                          .into_shape((pvalues.rows(), pvalues.cols()))
+                          .expect("Unexpected error in converting p-values into predictions");
+
+        Ok(preds)
+    }
+
+    /// Returns the p-values for test vectors.
+    ///
+    /// The return value is a matrix of `f64` (`Array2<f64>`) with shape
+    /// `(n_inputs, n_labels)`, where `n_inputs = inputs.rows()` and
+    /// `n_labels` is the number of possible labels;
+    /// in such matrix, each column `y` corresponds to a label,
+    /// each row `i` to an input object, and the value at `[i,y]` is
+    /// the p-value obtained when assuming `y` as a label for the
+    /// `i`-th input object.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// #[macro_use(array)]
+    /// extern crate ndarray;
+    /// extern crate random_world;
+    ///
+    /// # fn main() {
+    /// use random_world::cp::*;
+    /// use random_world::ncm::*;
+    ///
+    /// // Construct a deterministic CP with k-NN nonconformity measure (k=2).
+    /// let ncm = KNN::new(2);
+    /// let n_labels = 2;
+    /// let mut cp = CP::new(ncm, n_labels, Some(0.1));
+    /// let train_inputs = array![[0., 0.],
+    ///                           [1., 0.],
+    ///                           [0., 1.],
+    ///                           [1., 1.],
+    ///                           [2., 2.],
+    ///                           [1., 2.]];
+    /// let train_targets = array![0, 0, 0, 1, 1, 1];
+    /// let test_inputs = array![[2., 1.],
+    ///                          [2., 2.]];
+    ///
+    /// // Train and predict p-values
+    /// cp.train(&train_inputs.view(), &train_targets.view()).unwrap();
+    /// let pvalues = cp.predict_confidence(&test_inputs.view())
+    ///                 .expect("Failed prediction");
+    /// assert!(pvalues == array![[0.25, 1.],
+    ///                           [0.25, 1.]]);
+    /// }
+    /// ```
+    fn predict_confidence(&mut self, inputs: &ArrayView2<T>) -> LearningResult<Array2<f64>> {
+        // ICP needs to be calibrated.
+        if let Some(calibrated) = self.calibrated {
+            if !calibrated {
+                panic!("Need to calibrate() an ICP before calling predict()");
+            }
+        }
+
+        // Init pvalues with NaN to ease future debugging.
+        let mut pvalues = Array2::<f64>::from_elem((inputs.rows(), self.n_labels), NAN);
+
+        // Compute a p-value for each test input and for each candidate label.
+        for (i, x) in inputs.outer_iter().enumerate() {
+            for y in 0..self.n_labels {
+                let scores = self.ncm.scores(&x, y);
+                let x_score = scores[0];
+
+                let mut gt = 0.;
+                let mut eq = 1.;
+
+                let n = scores.len();
+                for score in scores.into_iter().skip(1) {
+                    // Keep track of greater than and equal.
+                    match () {
+                        _ if score > x_score => gt += 1.,
+                        _ if score == x_score => eq += 1.,
+                        _ => {},
+                    }
+                }
+
+                // Compute p-value.
+                let pvalue = if self.smooth {
+                    let tau = self.rng.as_mut()
+                                      .expect("Initialize as smooth CP to use")
+                                      .gen::<f64>();
+                    (gt + eq*tau) / (n as f64)
+                } else {
+                    (gt + eq) / (n as f64)
+                };
+
+                pvalues[[i,y]] = pvalue;
+            }
+        }
+
+        Ok(pvalues)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use ncm::*;
+    
+    /// Verify that the internal PRNG generates the same sequence
+    /// of numbers when seeded.
+    /// NOTE: if we ever want to change the PRNG, the hardcoded
+    /// values in this function also need to be changed appropriately.
+    #[test]
+    fn rnd_seeded() {
+        let ncm = KNN::new(2);
+        let n_labels = 2;
+        let seed = [0, 0];
+        let mut cp = CP::new_smooth(ncm, n_labels, Some(0.1), Some(seed));
+
+        let r  = cp.rng.as_mut()
+                  .expect("Initialize smooth CP to use")
+                  .gen_iter::<f64>()
+                  .take(5)
+                  .collect::<Vec<_>>();
+
+        assert!(r == vec![0., 0.07996389124884251, 0.6688798670240814,
+                          0.5106323435126732, 0.5024848655054046]);
+    }
+}

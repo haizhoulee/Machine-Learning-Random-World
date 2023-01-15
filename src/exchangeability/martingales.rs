@@ -11,4 +11,11 @@ use statrs::statistics::Variance;
 /// [2] "Plug-in martingales for testing exchangeability on-line"
 ///     (Fedorova et al., 2012).
 pub struct Martingale {
-    /// Current value of the marting
+    /// Current value of the martingale.
+    current: f64,
+    /// Threshold to determine if the martingale is "large".
+    pub threshold: f64,
+    /// Some methods need to record previous p-values.
+    pvalues: Option<Vec<f64>>,
+    /// The martingale M is updated given a new p-value p
+  

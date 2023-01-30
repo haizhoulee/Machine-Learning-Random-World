@@ -37,4 +37,18 @@ impl Default for Martingale {
     fn default() -> Martingale {
         Martingale {
             current: 1.0,
-            threshold
+            threshold: 100.0,
+            pvalues: None,
+            // Placeholder update_function.
+            update_function: Box::new(|_, _| { f64::NAN }),
+        }
+    }
+}
+
+
+impl Martingale {
+    /// Creates a new Power martingale.
+    ///
+    /// # Arguments
+    ///
+    /// * `ep

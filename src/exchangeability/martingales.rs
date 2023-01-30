@@ -51,4 +51,14 @@ impl Martingale {
     ///
     /// # Arguments
     ///
-    /// * `ep
+    /// * `epsilon` - Parameter of the Power martingale.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use random_world::exchangeability::*;
+    ///
+    /// let epsilon = 0.95;
+    /// let mut m = Martingale::new_power(epsilon);
+    /// ```
+    pub fn new_powe

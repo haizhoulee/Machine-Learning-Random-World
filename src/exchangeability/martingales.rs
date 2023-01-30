@@ -25,4 +25,10 @@ pub struct Martingale {
 }
 
 impl Default for Martingale {
-    /// Default values for `Marting
+    /// Default values for `Martingale`.
+    ///
+    /// NOTE: constructor methods (e.g., `new_power()`, `new_plugin()`)
+    /// should be preferred to using defaults; default for
+    /// `update_function`, for  example, is a meaningless placeholder
+    /// function.
+    /// If one wants to instantiate a `

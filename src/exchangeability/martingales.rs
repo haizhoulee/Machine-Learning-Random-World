@@ -86,4 +86,13 @@ impl Martingale {
     /// to determine its value.
     ///
     /// # Arguments
-  
+    ///
+    /// * `bandwidth` - Bandwidth for the gaussian kernel in KDE. Can be None.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use random_world::exchangeability::*;
+    ///
+    /// let bandwidth = 0.2;
+    /// let mut m = Martingale::new_plugin(Some(ban

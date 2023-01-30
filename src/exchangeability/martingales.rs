@@ -61,4 +61,11 @@ impl Martingale {
     /// let epsilon = 0.95;
     /// let mut m = Martingale::new_power(epsilon);
     /// ```
-    pub fn new_powe
+    pub fn new_power(epsilon: f64) -> Martingale {
+        assert!(epsilon >= 0.0 && epsilon <= 1.0);
+
+        Martingale {
+            update_function: Box::new(move |pvalue, _| {
+                                        epsilon*pvalue.powf(epsilon-1.0)
+                                    }),
+            ..Default::default()

@@ -18,4 +18,11 @@ pub struct Martingale {
     /// Some methods need to record previous p-values.
     pvalues: Option<Vec<f64>>,
     /// The martingale M is updated given a new p-value p
-  
+    /// as:
+    ///     M *= update_function(p, pvalues)
+    /// where pvalues are optionally recorded previous p-values.
+    update_function: Box<Fn(f64, &Option<Vec<f64>>) -> f64>,
+}
+
+impl Default for Martingale {
+    /// Default values for `Marting

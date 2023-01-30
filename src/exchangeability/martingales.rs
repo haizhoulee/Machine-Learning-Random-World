@@ -69,3 +69,14 @@ impl Martingale {
                                         epsilon*pvalue.powf(epsilon-1.0)
                                     }),
             ..Default::default()
+        }
+    }
+
+    /// Creates a new Simple Mixture martingale.
+    ///
+    /// NOTE: this is currently not implemented.
+    pub fn new_simple_mixture() -> Martingale {
+        unimplemented!();
+    }
+
+    

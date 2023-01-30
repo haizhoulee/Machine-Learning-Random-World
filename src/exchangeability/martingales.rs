@@ -79,4 +79,11 @@ impl Martingale {
         unimplemented!();
     }
 
-    
+    /// Creates a new Plug-in martingale.
+    ///
+    /// To estimate the density it uses KDE with a gaussian kernel.
+    /// If bandwidth is not specified, it uses Silverman's rule of thumb
+    /// to determine its value.
+    ///
+    /// # Arguments
+  

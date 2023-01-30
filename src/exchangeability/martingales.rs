@@ -31,4 +31,10 @@ impl Default for Martingale {
     /// should be preferred to using defaults; default for
     /// `update_function`, for  example, is a meaningless placeholder
     /// function.
-    /// If one wants to instantiate a `
+    /// If one wants to instantiate a `Martingale` with a custom
+    /// `update_function`, they are recommended to use the
+    /// `Martingale::from_function()` constructor.
+    fn default() -> Martingale {
+        Martingale {
+            current: 1.0,
+            threshold

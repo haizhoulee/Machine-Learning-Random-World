@@ -101,4 +101,7 @@ impl Martingale {
         Martingale {
             pvalues: Some(vec![]),
             update_function: Box::new(move |pvalue, pvalues| {
-                 
+                                       plugin_update(pvalue,
+                                           &pvalues.as_ref()
+                                                   .expect("Plug-in martingale badly initialized"),
+                                   

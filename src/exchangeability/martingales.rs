@@ -95,4 +95,10 @@ impl Martingale {
     /// use random_world::exchangeability::*;
     ///
     /// let bandwidth = 0.2;
-    /// let mut m = Martingale::new_plugin(Some(ban
+    /// let mut m = Martingale::new_plugin(Some(bandwidth));
+    /// ```
+    pub fn new_plugin(bandwidth: Option<f64>) -> Martingale {
+        Martingale {
+            pvalues: Some(vec![]),
+            update_function: Box::new(move |pvalue, pvalues| {
+                 

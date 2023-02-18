@@ -104,4 +104,14 @@ impl Martingale {
                                        plugin_update(pvalue,
                                            &pvalues.as_ref()
                                                    .expect("Plug-in martingale badly initialized"),
-                                   
+                                           bandwidth)
+                                     }),
+            ..Default::default()
+        }
+    }
+
+    /// Creates a new martingale from a custom update function.
+    ///
+    /// # Arguments
+    ///
+    /// * `u

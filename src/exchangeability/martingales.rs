@@ -117,4 +117,11 @@ impl Martingale {
     /// * `update_function` - Function used to update the martingale;
     ///     such function should take as input a p-value and (optionally)
     ///     the previous p-values, and return the resulting value.
-    /// * `store_pvalues` - Whether `u
+    /// * `store_pvalues` - Whether `update_function` requires knowing
+    ///     the previous p-values. If set to `false`, `self.pvalues`
+    ///     is set to `None`.
+    ///
+    /// # Examples
+    ///
+    /// Create a Power martingale from a custom update function.
+    /// NOTE: to cr

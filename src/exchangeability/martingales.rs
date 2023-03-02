@@ -114,4 +114,7 @@ impl Martingale {
     ///
     /// # Arguments
     ///
-    /// * `u
+    /// * `update_function` - Function used to update the martingale;
+    ///     such function should take as input a p-value and (optionally)
+    ///     the previous p-values, and return the resulting value.
+    /// * `store_pvalues` - Whether `u

@@ -124,4 +124,12 @@ impl Martingale {
     /// # Examples
     ///
     /// Create a Power martingale from a custom update function.
-    /// NOTE: to cr
+    /// NOTE: to create a Power martingale, using `new_power()` is
+    /// to be preferred.
+    ///
+    /// ```
+    /// use random_world::exchangeability::*;
+    ///
+    /// let epsilon = 0.95;
+    /// let update_function = Box::new(move |pvalue: f64, _: &Option<Vec<f64>>| {
+    ///    

@@ -137,4 +137,12 @@ impl Martingale {
     ///
     /// let mut m = Martingale::from_function(update_function, false);
     /// ```
-    pub fn from_function(update_f
+    pub fn from_function(update_function: Box<Fn(f64, &Option<Vec<f64>>) -> f64>,
+            store_pvalues: bool) -> Martingale {
+        let pvalues = match store_pvalues {
+            true => Some(vec![]),
+            false => None,
+        };
+
+        Martingale {
+            update_fun

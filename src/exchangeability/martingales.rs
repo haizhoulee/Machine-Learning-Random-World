@@ -132,4 +132,9 @@ impl Martingale {
     ///
     /// let epsilon = 0.95;
     /// let update_function = Box::new(move |pvalue: f64, _: &Option<Vec<f64>>| {
-    ///    
+    ///                                 epsilon*pvalue.powf(epsilon-1.0)
+    ///                                });
+    ///
+    /// let mut m = Martingale::from_function(update_function, false);
+    /// ```
+    pub fn from_function(update_f

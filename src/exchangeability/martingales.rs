@@ -145,4 +145,17 @@ impl Martingale {
         };
 
         Martingale {
-            update_fun
+            update_function: update_function,
+            pvalues: pvalues,
+            ..Default::default()
+        }
+    }
+
+    /// Returns the current value of the martingale.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use random_world::exchangeability::*;
+    ///
+ 

@@ -178,4 +178,11 @@ impl Martingale {
     /// ```
     /// use random_world::exchangeability::*;
     ///
-    /// let bandwi
+    /// let bandwidth = 0.2;
+    /// let mut m = Martingale::new_plugin(Some(bandwidth));
+    /// let new_pvalue = 0.1;
+    ///
+    /// println!("Current M: {}", m.update(new_pvalue));
+    /// ```
+    pub fn update(&mut self, pvalue: f64) -> f64 {
+        // U

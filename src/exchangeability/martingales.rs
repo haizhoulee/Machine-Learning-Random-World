@@ -167,4 +167,15 @@ impl Martingale {
         self.current
     }
 
-    /// Updates the martingale
+    /// Updates the martingale and returns its new value.
+    ///
+    /// # Arguments
+    ///
+    /// * `pvalue` - The new observed p-value.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use random_world::exchangeability::*;
+    ///
+    /// let bandwi

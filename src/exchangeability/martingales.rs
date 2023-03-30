@@ -158,4 +158,13 @@ impl Martingale {
     /// ```
     /// use random_world::exchangeability::*;
     ///
- 
+    /// let bandwidth = 0.2;
+    /// let mut m = Martingale::new_plugin(Some(bandwidth));
+    ///
+    /// println!("Current M: {}", m.current());
+    /// ```
+    pub fn current(&self) -> f64 {
+        self.current
+    }
+
+    /// Updates the martingale

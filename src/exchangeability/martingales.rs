@@ -219,4 +219,12 @@ impl Martingale {
 /// To get a better estimate, KDE is estimated on:
 ///     ${p_i, -p_i, 2-p_i}$
 /// for each previous p-value $p_i$; then the estimate is normalized
-/// over [0,1] by dividing by the integral of the function in this interval
+/// over [0,1] by dividing by the integral of the function in this interval.
+///
+/// # Arguments
+///
+/// `pvalue` - New p-value.
+/// `pvalues` - Previous recorded p-values.
+/// `bandwidth` - Bandiwdth for KDE with gaussian kernel. If `None`,
+///     Silverman's rule of thumb is used to determine it.
+fn plugin_update(pvalue: f64, pvalues: &[f64], ba

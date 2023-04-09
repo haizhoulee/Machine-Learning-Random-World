@@ -227,4 +227,10 @@ impl Martingale {
 /// `pvalues` - Previous recorded p-values.
 /// `bandwidth` - Bandiwdth for KDE with gaussian kernel. If `None`,
 ///     Silverman's rule of thumb is used to determine it.
-fn plugin_update(pvalue: f64, pvalues: &[f64], ba
+fn plugin_update(pvalue: f64, pvalues: &[f64], bandwidth: Option<f64>) -> f64 {
+    // Augmented set of p-values.
+    let mut augmented_pvalues = Vec::with_capacity(3*pvalues.len());
+    for p in pvalues.into_iter() {
+        augmented_pvalues.push(*p);
+        augmented_pvalues.push(-p);
+    

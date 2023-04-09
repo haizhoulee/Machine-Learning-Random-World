@@ -195,4 +195,16 @@ impl Martingale {
             pvalues.push(pvalue);
             if pvalues.len() <= 2 {
                 eprintln!("Warning: the martingale won't be updated at this \
-                           step, a
+                           step, as it requries seeing at least 2 pvalues");
+                update = 1.;
+            }
+        }
+
+        self.current *= update;
+
+        self.current
+    }
+
+    /// True if the current value of the martingale is larger
+    /// than the selected threshold.
+    pub

@@ -191,4 +191,8 @@ impl Martingale {
         // - store the new p-value;
         // - DO NOT update the martingale if this is the first
         //   p-value we observe.
-     
+        if let Some(pvalues) = self.pvalues.as_mut() {
+            pvalues.push(pvalue);
+            if pvalues.len() <= 2 {
+                eprintln!("Warning: the martingale won't be updated at this \
+                           step, a

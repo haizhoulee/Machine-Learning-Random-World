@@ -185,4 +185,10 @@ impl Martingale {
     /// println!("Current M: {}", m.update(new_pvalue));
     /// ```
     pub fn update(&mut self, pvalue: f64) -> f64 {
-        // U
+        // Update.
+        let mut update = (self.update_function)(pvalue, &self.pvalues);
+        // If the method requires storing previous p-values:
+        // - store the new p-value;
+        // - DO NOT update the martingale if this is the first
+        //   p-value we observe.
+     

@@ -207,4 +207,12 @@ impl Martingale {
 
     /// True if the current value of the martingale is larger
     /// than the selected threshold.
-    pub
+    pub fn is_large(&self) -> bool {
+        self.current > self.threshold
+    }
+}
+
+/// Update function for Plug-in martingales.
+///
+/// As done in (Fedorova et al., 2012), the betting function is
+/// a KDE PDF estimate with gaussian kernel, computed on pr

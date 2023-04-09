@@ -215,4 +215,8 @@ impl Martingale {
 /// Update function for Plug-in martingales.
 ///
 /// As done in (Fedorova et al., 2012), the betting function is
-/// a KDE PDF estimate with gaussian kernel, computed on pr
+/// a KDE PDF estimate with gaussian kernel, computed on previous p-values.
+/// To get a better estimate, KDE is estimated on:
+///     ${p_i, -p_i, 2-p_i}$
+/// for each previous p-value $p_i$; then the estimate is normalized
+/// over [0,1] by dividing by the integral of the function in this interval

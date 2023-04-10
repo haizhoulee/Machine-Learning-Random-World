@@ -286,3 +286,14 @@ mod tests {
     }
 
     /// Verify KDE with specified bandwidth.
+    #[test]
+    fn kde_bandwidth() {
+        let v = vec![0., 1., 2., 3., 4., 5., 6.];
+        let bandwidth = Some(0.1);
+
+        assert_relative_eq!(kde(0., &v, bandwidth), 0.5699175434306182);
+    }
+
+    #[test]
+    fn plugin_martingale_update() {
+        let pvalues

@@ -246,4 +246,12 @@ fn plugin_update(pvalue: f64, pvalues: &[f64], bandwidth: Option<f64>) -> f64 {
 /// previous ones.
 ///
 /// It uses a gaussian kernel.
-/// If bandwidth is not specified, it uses Silve
+/// If bandwidth is not specified, it uses Silverman's rule of thumb
+/// to determine its value.
+///
+/// # Arguments
+///
+/// * `x` - New observation.
+/// * `x_previous` - Previous observations.
+/// * `bandwidth` - Bandwidth for the gaussian kernel in KDE.
+fn kde(x: f64, x_previous: &[f64], bandwidth: 

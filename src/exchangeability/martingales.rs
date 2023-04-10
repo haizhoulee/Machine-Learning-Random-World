@@ -254,4 +254,15 @@ fn plugin_update(pvalue: f64, pvalues: &[f64], bandwidth: Option<f64>) -> f64 {
 /// * `x` - New observation.
 /// * `x_previous` - Previous observations.
 /// * `bandwidth` - Bandwidth for the gaussian kernel in KDE.
-fn kde(x: f64, x_previous: &[f64], bandwidth: 
+fn kde(x: f64, x_previous: &[f64], bandwidth: Option<f64>) -> f64 {
+
+    let n = x_previous.len() as f64;
+
+    let h = match bandwidth {
+        Some(h) => h,
+        None => { // Silverman's rule of thumb.
+                  x_previous.std_dev()*(4.0/3.0/n).powf(0.2)
+                },
+    };
+    
+    let q = 2.506628

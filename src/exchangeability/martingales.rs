@@ -238,4 +238,12 @@ fn plugin_update(pvalue: f64, pvalues: &[f64], bandwidth: Option<f64>) -> f64 {
     // Compute integral of KDE function in [0,1].
     let k = integrate(|x: f64| kde(x, &augmented_pvalues, bandwidth),
                       0.0, 1.0, 1e-6).integral;
-    // Return no
+    // Return normalized KDE prediction on x.
+    kde(pvalue, &augmented_pvalues, bandwidth) / k
+}
+
+/// Computes Kernel Density Estimate of a new observation given
+/// previous ones.
+///
+/// It uses a gaussian kernel.
+/// If bandwidth is not specified, it uses Silve

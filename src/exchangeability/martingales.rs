@@ -233,4 +233,9 @@ fn plugin_update(pvalue: f64, pvalues: &[f64], bandwidth: Option<f64>) -> f64 {
     for p in pvalues.into_iter() {
         augmented_pvalues.push(*p);
         augmented_pvalues.push(-p);
-    
+        augmented_pvalues.push(2.-p);
+    }
+    // Compute integral of KDE function in [0,1].
+    let k = integrate(|x: f64| kde(x, &augmented_pvalues, bandwidth),
+                      0.0, 1.0, 1e-6).integral;
+    // Return no

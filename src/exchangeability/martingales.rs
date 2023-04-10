@@ -296,4 +296,12 @@ mod tests {
 
     #[test]
     fn plugin_martingale_update() {
-        let pvalues
+        let pvalues = [0.2, 0.6, 0.5, 0.8, 0.1];
+        let pvalue = 0.1;
+        let bandwidth = 0.1;
+
+        let update = plugin_update(pvalue, &pvalues, Some(bandwidth));
+
+        assert_relative_eq!(update, 1.398942285770281);
+    }
+}

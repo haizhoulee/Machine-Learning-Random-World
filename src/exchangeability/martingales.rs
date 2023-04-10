@@ -277,4 +277,12 @@ fn kde(x: f64, x_previous: &[f64], bandwidth: Option<f64>) -> f64 {
 mod tests {
     use super::*;
 
-    /// Verify KDE wit
+    /// Verify KDE with rule of thumb for bandwidth.
+    #[test]
+    fn kde_silverman() {
+        let v = vec![0., 1., 2., 3., 4., 5., 6.];
+
+        assert_relative_eq!(kde(0., &v, None), 0.08980564883842916);
+    }
+
+    /// Verify KDE with specified bandwidth.

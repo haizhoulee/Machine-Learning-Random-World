@@ -265,4 +265,16 @@ fn kde(x: f64, x_previous: &[f64], bandwidth: Option<f64>) -> f64 {
                 },
     };
     
-    let q = 2.506628
+    let q = 2.5066282746310002;     // That's sqrt(2*pi)
+
+    x_previous.iter()
+              .map(|xi| (x - xi) / h)
+              .map(|u| ((-0.5*u.powi(2)).exp()))
+              .sum::<f64>() / (n*h*q)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// Verify KDE wit

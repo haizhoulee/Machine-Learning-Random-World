@@ -19,4 +19,11 @@
 //! use rand::{Rng, SeedableRng};
 //! use statrs::distribution::{Normal, Distribution};
 //!
-/
+//! use random_world::cp::*;
+//! use random_world::ncm::*;
+//! use random_world::exchangeability::*;
+//!
+//! // Generate sequence. Trend change after 100 examples.
+//! let seed = [0, 0];
+//! let mut rng = Pcg32::from_seed(seed);
+//! let n = Normal

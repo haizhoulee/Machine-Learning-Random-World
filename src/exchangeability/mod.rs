@@ -26,4 +26,10 @@
 //! // Generate sequence. Trend change after 100 examples.
 //! let seed = [0, 0];
 //! let mut rng = Pcg32::from_seed(seed);
-//! let n = Normal
+//! let n = Normal::new(0.0, 1.0).unwrap();
+//! let n_anomaly = Normal::new(40.0, 10.0).unwrap();
+//!
+//! let mut data_sequence = (0..100).into_iter()
+//!                             .map(|_| n.sample(&mut rng))
+//!                             .collect::<Vec<_>>();
+//! data_sequence.ex

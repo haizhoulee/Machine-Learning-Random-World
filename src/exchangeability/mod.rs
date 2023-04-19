@@ -43,4 +43,10 @@
 //! let mut cp = CP::new_smooth(ncm, n_labels, None, Some(seed));
 //!
 //! // Create a new Plug-in martingale with `bandwidth=None` (i.e.,
-//! // `bandwidth` will be automatically 
+//! // `bandwidth` will be automatically chosen using Silverman's method).
+//! let mut m = Martingale::new_plugin(Some(0.1));
+//! 
+//! let y = array![0];          // Arbitrary label for data points.
+//!
+//! // Train on first data point.
+//! cp.train(&array![[data_sequence[0]]].view()

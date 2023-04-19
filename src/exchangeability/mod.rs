@@ -32,4 +32,9 @@
 //! let mut data_sequence = (0..100).into_iter()
 //!                             .map(|_| n.sample(&mut rng))
 //!                             .collect::<Vec<_>>();
-//! data_sequence.ex
+//! data_sequence.extend((0..100).into_iter()
+//!                             .map(|_| n_anomaly.sample(&mut rng)));
+//!
+//! // Create a smoothed CP with k-NN nonconformity measure (k=1).
+//! // Note that the CP needs to be smoothed for the method to work.
+//! let seed = [1,

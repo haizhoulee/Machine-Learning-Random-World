@@ -54,4 +54,14 @@
 //! // Update and evaluate the martingale on the remaining points.
 //! for x in data_sequence.into_iter().skip(1) {
 //!     let p = cp.predict_confidence(&array![[x]].view())
-//!               .expect("Failed to p
+//!               .expect("Failed to predict")[[0,0]];
+//!     let _ = m.update(p);    // Returns the martingale's value.
+//!     cp.update(&array![[x]].view(), &y.view());
+//! }
+//!
+//! assert!(m.is_large());
+//! # }
+//! ```
+pub mod martingales;
+
+pub use self::martingales::Martingale;

@@ -49,4 +49,9 @@
 //! let y = array![0];          // Arbitrary label for data points.
 //!
 //! // Train on first data point.
-//! cp.train(&array![[data_sequence[0]]].view()
+//! cp.train(&array![[data_sequence[0]]].view(), &y.view())
+//!   .expect("Failed to train CP");
+//! // Update and evaluate the martingale on the remaining points.
+//! for x in data_sequence.into_iter().skip(1) {
+//!     let p = cp.predict_confidence(&array![[x]].view())
+//!               .expect("Failed to p

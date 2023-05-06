@@ -26,4 +26,10 @@ fn split_inputs<T>(inputs: &ArrayView2<T>, targets: &ArrayView1<usize>,
          n_labels: usize) -> Vec<Array2<T>> where T: Clone + Sync + Copy {
     // Split examples w.r.t. their labels. For each unique label y,
     // train_inputs[y] will contain a matrix with the inputs with
-    /
+    // label y.
+    // We first put them into a vector, and then will convert them
+    // into array. This should guarantee memory contiguity.
+    // XXX: there may exist a better (faster) way.
+    let mut train_inputs_vec = vec![vec![]; n_labels];
+
+    for (x, y) in inpu

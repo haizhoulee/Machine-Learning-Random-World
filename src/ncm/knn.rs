@@ -32,4 +32,13 @@ fn split_inputs<T>(inputs: &ArrayView2<T>, targets: &ArrayView1<usize>,
     // XXX: there may exist a better (faster) way.
     let mut train_inputs_vec = vec![vec![]; n_labels];
 
-    for (x, y) in inpu
+    for (x, y) in inputs.outer_iter().zip(targets) {
+        // Implicitly asserts that 0 <= y < self.n_labels.
+        train_inputs_vec[*y].extend(x.iter());
+    }
+
+    let d = inputs.cols();
+
+    // Convert into arrays.
+    let mut train_inputs = vec![];
+    for inputs_y in

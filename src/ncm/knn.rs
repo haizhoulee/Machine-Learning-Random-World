@@ -41,4 +41,13 @@ fn split_inputs<T>(inputs: &ArrayView2<T>, targets: &ArrayView1<usize>,
 
     // Convert into arrays.
     let mut train_inputs = vec![];
-    for inputs_y in
+    for inputs_y in train_inputs_vec {
+        let n = inputs_y.len() / d;
+        train_inputs.push(Array::from_shape_vec((n, d), inputs_y)
+                                .expect("Unexpected error in reshaping"));
+    }
+
+    train_inputs
+}
+
+/// A k-NN nonconformity

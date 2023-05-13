@@ -58,4 +58,8 @@ pub struct KNN<T: Sync> {
     k: usize,
     distance: fn(&ArrayView1<T>, &ArrayView1<T>) -> f64,
     n_labels: Option<usize>,
-    
+    // Training inputs are stored in a train_inputs, indexed
+    // by a label y, where train_inputs[y] contains all training
+    // inputs with label y.
+    train_inputs: Option<Vec<Array2<T>>>,
+    // Calibration inputs are optional. If set, then the

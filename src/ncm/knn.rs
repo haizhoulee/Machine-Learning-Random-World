@@ -50,4 +50,12 @@ fn split_inputs<T>(inputs: &ArrayView2<T>, targets: &ArrayView1<usize>,
     train_inputs
 }
 
-/// A k-NN nonconformity
+/// A k-NN nonconformity measure.
+///
+/// The score is defined for some distance metric and number of
+/// neighbors.
+pub struct KNN<T: Sync> {
+    k: usize,
+    distance: fn(&ArrayView1<T>, &ArrayView1<T>) -> f64,
+    n_labels: Option<usize>,
+    

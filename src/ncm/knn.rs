@@ -63,3 +63,11 @@ pub struct KNN<T: Sync> {
     // inputs with label y.
     train_inputs: Option<Vec<Array2<T>>>,
     // Calibration inputs are optional. If set, then the
+    // NCM is trained on train_inputs, and the scores are
+    // computed on calibration_inputs.
+    calibration_inputs: Option<Vec<Array2<T>>>,
+}
+
+impl KNN<f64> {
+    /// Constructs a k-NN nonconformity measure.
+    ///

@@ -71,3 +71,16 @@ pub struct KNN<T: Sync> {
 impl KNN<f64> {
     /// Constructs a k-NN nonconformity measure.
     ///
+    /// # Arguments
+    ///
+    /// `k` - Number of nearest neighbors.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use random_world::ncm::*;
+    ///
+    /// let k = 2;
+    /// let ncm = KNN::new(k);
+    /// ```
+    pub fn new(k: usiz

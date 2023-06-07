@@ -111,4 +111,12 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
     /// * `n_labels` - Number of unique labels in the classification problem.
     fn train(&mut self, inputs: &ArrayView2<T>, targets: &ArrayView1<usize>,
              n_labels: usize) -> LearningResult<()> {
-      
+        if self.train_inputs.is_some() {
+            panic!("Can only train once");
+        }
+        self.n_labels = Some(n_labels);
+        self.train_inputs = Some(split_inputs(inputs, targets, n_labels));
+
+        Ok(())
+    }
+    /// Calibrates a k-NN nonconformity sc

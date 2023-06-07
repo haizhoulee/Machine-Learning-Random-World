@@ -100,3 +100,11 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
     ///
     /// Note: `train()` should be only called once. To update the training
     /// data of the `NonconformityScorer` use `update()`.
+    ///
+    ///
+    /// # Arguments
+    ///
+    /// * `inputs` - Matrix (Array2<T>) with values of type T of training
+    ///              vectors.
+    /// * `targets` - Vector (Array1<T>) of labels corresponding to the
+    ///               t

@@ -130,4 +130,8 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
     /// * `n_labels` - Number of unique labels in the classification problem.
     fn calibrate(&mut self, inputs: &ArrayView2<T>, targets: &ArrayView1<usize>)
              -> LearningResult<()> {
-        if sel
+        if self.train_inputs.is_none() {
+            panic!("Need to train before calibrate()-ing");
+        }
+        self.calibration_inputs = Some(split_inputs(inputs, targets,
+                                                    self.n_labels.un

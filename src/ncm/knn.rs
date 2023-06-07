@@ -107,4 +107,8 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
     /// * `inputs` - Matrix (Array2<T>) with values of type T of training
     ///              vectors.
     /// * `targets` - Vector (Array1<T>) of labels corresponding to the
-    ///               t
+    ///               training vectors.
+    /// * `n_labels` - Number of unique labels in the classification problem.
+    fn train(&mut self, inputs: &ArrayView2<T>, targets: &ArrayView1<usize>,
+             n_labels: usize) -> LearningResult<()> {
+      

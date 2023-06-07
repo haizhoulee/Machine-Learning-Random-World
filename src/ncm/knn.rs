@@ -83,4 +83,15 @@ impl KNN<f64> {
     /// let k = 2;
     /// let ncm = KNN::new(k);
     /// ```
-    pub fn new(k: usiz
+    pub fn new(k: usize) -> KNN<f64> {
+        KNN {
+            k: k,
+            distance: euclidean_distance,
+            train_inputs: None,
+            calibration_inputs: None,
+            n_labels: None,
+        }
+    }
+}
+
+impl<T: Sync> NonconformityScorer<T> fo

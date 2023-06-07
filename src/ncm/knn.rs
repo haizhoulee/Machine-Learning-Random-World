@@ -134,4 +134,12 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
             panic!("Need to train before calibrate()-ing");
         }
         self.calibration_inputs = Some(split_inputs(inputs, targets,
-                                                    self.n_labels.un
+                                                    self.n_labels.unwrap()));
+
+        Ok(())
+    }
+
+    /// Updates a k-NN nonconformity scorer with more training data.
+    ///
+    /// After calling `train()` once, `update()` allows to add
+    /// inputs to the scorer's training data, which 

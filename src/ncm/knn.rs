@@ -94,4 +94,9 @@ impl KNN<f64> {
     }
 }
 
-impl<T: Sync> NonconformityScorer<T> fo
+impl<T: Sync> NonconformityScorer<T> for KNN<T>
+        where T: Clone + Sync + Copy {
+    /// Trains a k-NN nonconformity scorer.
+    ///
+    /// Note: `train()` should be only called once. To update the training
+    /// data of the `NonconformityScorer` use `update()`.

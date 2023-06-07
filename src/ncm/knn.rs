@@ -119,4 +119,11 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
 
         Ok(())
     }
-    /// Calibrates a k-NN nonconformity sc
+    /// Calibrates a k-NN nonconformity scorer for an ICP.
+    ///
+    /// # Arguments
+    ///
+    /// * `inputs` - Matrix (Array2<T>) with values of type T of training
+    ///              vectors.
+    /// * `targets` - Vector (Array1<T>) of labels corresponding to the
+    ///           

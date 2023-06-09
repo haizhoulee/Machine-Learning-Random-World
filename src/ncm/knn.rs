@@ -142,4 +142,11 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
     /// Updates a k-NN nonconformity scorer with more training data.
     ///
     /// After calling `train()` once, `update()` allows to add
-    /// inputs to the scorer's training data, which 
+    /// inputs to the scorer's training data, which will be used
+    /// for future predictions.
+    ///
+    /// # Arguments
+    ///
+    /// * `inputs` - Matrix (Array2<T>) with values of type T of training
+    ///              vectors.
+    /// * `targets` - Vector (Array1<T>) of

@@ -154,4 +154,10 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
     fn update(&mut self, inputs: &ArrayView2<T>, targets: &ArrayView1<usize>)
         -> LearningResult<()> {
 
-        let train_inputs 
+        let train_inputs = match self.train_inputs {
+            Some(ref mut train_inputs) => train_inputs,
+            None => panic!("Call train() once before update()"),
+        };
+
+        // NOTE: when ndarray will have cheap concatenation, we
+        //

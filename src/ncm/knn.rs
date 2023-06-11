@@ -164,4 +164,9 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
         // append each (x, y) to the appropriate self.train_inputs[y].
         // The current method is less efficient than that.
         for (x, y) in inputs.outer_iter().zip(targets) {
-      
+            train_inputs[*y] = stack![Axis(0), train_inputs[*y],
+                                      x.clone().into_shape((1, x.len()))
+                                               .expect("Unexpected reshaping error")];
+        }
+
+     

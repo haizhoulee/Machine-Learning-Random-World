@@ -160,4 +160,8 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
         };
 
         // NOTE: when ndarray will have cheap concatenation, we
-        //
+        // should iterate once through (inputs, targets) and just
+        // append each (x, y) to the appropriate self.train_inputs[y].
+        // The current method is less efficient than that.
+        for (x, y) in inputs.outer_iter().zip(targets) {
+      

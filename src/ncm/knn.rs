@@ -169,4 +169,10 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
                                                .expect("Unexpected reshaping error")];
         }
 
-     
+        Ok(())
+    }
+    /// Computes the nonconformity scores of training inputs and of a new
+    /// test example.
+    ///
+    /// Specifically, nonconformity scores a_i, where (a_1, ..., a_{n-1})
+    /// are those corresponding to training examples, and a_n is the

@@ -184,4 +184,10 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
     ///
     /// * `x` - Test object.
     /// * `y` - (Candidate) label for the test object.
-    fn scor
+    fn scores(&self, x: &ArrayView1<T>, y: usize) -> Vec<f64> {
+        let train_inputs = self.train_inputs.as_ref()
+                                            .expect("You should train the model first");
+        let train_inputs_y = &train_inputs[y];
+        let mut scores;
+
+  

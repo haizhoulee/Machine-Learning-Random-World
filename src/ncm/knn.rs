@@ -176,3 +176,12 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
     ///
     /// Specifically, nonconformity scores a_i, where (a_1, ..., a_{n-1})
     /// are those corresponding to training examples, and a_n is the
+    /// nonconformity score of the new example (x, y), are returned in the
+    /// following order:
+    ///     (a_n, a_1, a_2, ..., a_{n-1}).
+    ///
+    /// # Arguments
+    ///
+    /// * `x` - Test object.
+    /// * `y` - (Candidate) label for the test object.
+    fn scor

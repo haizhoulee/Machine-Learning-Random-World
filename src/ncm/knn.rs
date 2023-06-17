@@ -190,4 +190,7 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
         let train_inputs_y = &train_inputs[y];
         let mut scores;
 
-  
+        // ICP.
+        if let Some(calibration_inputs) = self.calibration_inputs.as_ref() {
+            //// TODO: update to new version of ndarray and rejoyce.
+            let test_inputs = stack![Axis(0), x.into_shape((1, train_i

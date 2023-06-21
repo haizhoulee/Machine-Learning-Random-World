@@ -193,4 +193,8 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
         // ICP.
         if let Some(calibration_inputs) = self.calibration_inputs.as_ref() {
             //// TODO: update to new version of ndarray and rejoyce.
-            let test_inputs = stack![Axis(0), x.into_shape((1, train_i
+            let test_inputs = stack![Axis(0), x.into_shape((1, train_inputs_y.cols()))
+                                               .expect("Unexpected error in reshaping"),
+                                     calibration_inputs[y].clone()];
+            scores = Vec::with_capacity(test_inputs.len());
+    

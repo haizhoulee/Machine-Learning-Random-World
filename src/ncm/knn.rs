@@ -200,4 +200,10 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
             let k = min(self.k, train_inputs_y.rows());
             for input in test_inputs.outer_iter() {
                 let score = train_inputs_y.outer_iter()
-                                          .map(|x| (self.distanc
+                                          .map(|x| (self.distance)(&x, &input))
+                                          .sorted_partial_last()
+                                          .take(k)
+                                          .sum::<f64>();
+                scores.push(score);
+            }
+     

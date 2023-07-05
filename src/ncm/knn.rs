@@ -197,4 +197,7 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
                                                .expect("Unexpected error in reshaping"),
                                      calibration_inputs[y].clone()];
             scores = Vec::with_capacity(test_inputs.len());
-    
+            let k = min(self.k, train_inputs_y.rows());
+            for input in test_inputs.outer_iter() {
+                let score = train_inputs_y.outer_iter()
+                                          .map(|x| (self.distanc

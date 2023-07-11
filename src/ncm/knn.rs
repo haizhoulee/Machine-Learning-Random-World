@@ -206,4 +206,10 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
                                           .sum::<f64>();
                 scores.push(score);
             }
-     
+        }
+        // TCP.
+        else {
+            // XXX: once ndarray supports appending a row, we should
+            // append to the matrix rather than creating a new one.
+            let test_inputs = stack![Axis(0), x.into_shape((1, train_inputs_y.cols()))
+                                    

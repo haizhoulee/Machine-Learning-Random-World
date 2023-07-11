@@ -216,4 +216,8 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
                                      train_inputs_y.clone()];
             scores = Vec::with_capacity(test_inputs.len());
             let k = min(self.k, test_inputs.rows()-1);
-         
+            for i in 0..test_inputs.rows() {
+                let input = test_inputs.row(i);
+                let score = test_inputs.outer_iter()
+                                       .enumerate()
+                                       .filter(

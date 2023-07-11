@@ -212,4 +212,8 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
             // XXX: once ndarray supports appending a row, we should
             // append to the matrix rather than creating a new one.
             let test_inputs = stack![Axis(0), x.into_shape((1, train_inputs_y.cols()))
-                                    
+                                               .expect("Unexpected error in reshaping"),
+                                     train_inputs_y.clone()];
+            scores = Vec::with_capacity(test_inputs.len());
+            let k = min(self.k, test_inputs.rows()-1);
+         

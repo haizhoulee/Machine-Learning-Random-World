@@ -220,4 +220,8 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
                 let input = test_inputs.row(i);
                 let score = test_inputs.outer_iter()
                                        .enumerate()
-                                       .filter(
+                                       .filter(|&(j, _)| j != i)
+                                       .map(|(_, x)| (self.distance)(&x, &input))
+                                       .sorted_partial_last()
+                                       .take(k)
+                               

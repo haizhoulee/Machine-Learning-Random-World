@@ -224,4 +224,19 @@ impl<T: Sync> NonconformityScorer<T> for KNN<T>
                                        .map(|(_, x)| (self.distance)(&x, &input))
                                        .sorted_partial_last()
                                        .take(k)
-                               
+                                       .sum::<f64>();
+                scores.push(score);
+            }
+        }
+
+        scores
+    }
+}
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// Verify that KNN training succeeds properly (i.e., it
+    /// correctly splits training input

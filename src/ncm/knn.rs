@@ -239,4 +239,13 @@ mod tests {
     use super::*;
 
     /// Verify that KNN training succeeds properly (i.e., it
-    /// correctly splits training input
+    /// correctly splits training inputs per label).
+    #[test]
+    fn train() {
+        let mut knn = KNN::new(2);
+        let n_labels = 3;
+
+        let train_inputs = array![[2., 2.],
+                                  [1., 2.],
+                                  [0., 0.],
+             

@@ -254,4 +254,8 @@ mod tests {
         let train_targets = array![2, 2, 0, 0, 1, 1];
 
         let expected_train_inputs = vec![array![[0., 0.],
-                   
+                                                [1., 0.]],
+                                         array![[0., 1.],
+                                                [1., 1.]],
+                                         array![[2., 2.],
+                              

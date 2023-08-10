@@ -258,4 +258,11 @@ mod tests {
                                          array![[0., 1.],
                                                 [1., 1.]],
                                          array![[2., 2.],
-                              
+                                                [1., 2.]]];
+
+        knn.train(&train_inputs.view(), &train_targets.view(), n_labels).unwrap();
+
+        assert!(knn.train_inputs.unwrap() == expected_train_inputs);
+    }
+
+    /// Verify that train() + update() on partial 

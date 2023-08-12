@@ -273,4 +273,9 @@ mod tests {
         let mut ncm = KNN::new(2);
         let n_labels = 3;
         let train_inputs_1 = array![[0., 0.],
-    
+                                    [0., 1.],
+                                    [2., 2.]];
+        let train_targets_1 = array![0, 1, 2];
+        let train_inputs_2 = array![[1., 1.]];
+        let train_targets_2 = array![0];
+        let train_inputs_3 = arr

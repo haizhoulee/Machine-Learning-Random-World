@@ -265,4 +265,12 @@ mod tests {
         assert!(knn.train_inputs.unwrap() == expected_train_inputs);
     }
 
-    /// Verify that train() + update() on partial 
+    /// Verify that train() + update() on partial datasets is
+    /// equivalent to train()-ing on full dataset.
+    #[test]
+    fn update() {
+        // Train a k-NN
+        let mut ncm = KNN::new(2);
+        let n_labels = 3;
+        let train_inputs_1 = array![[0., 0.],
+    

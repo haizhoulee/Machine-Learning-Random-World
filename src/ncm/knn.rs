@@ -284,4 +284,8 @@ mod tests {
 
         // First, train().
         ncm.train(&train_inputs_1.view(), &train_targets_1.view(), n_labels)
-           .e
+           .expect("Failed to train model");
+        // Update with new data.
+        ncm.update(&train_inputs_2.view(), &train_targets_2.view())
+           .expect("Failed to train model");
+        ncm.update(&train_inputs_3.view(), &train_targets_3.

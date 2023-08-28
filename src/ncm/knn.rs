@@ -278,4 +278,10 @@ mod tests {
         let train_targets_1 = array![0, 1, 2];
         let train_inputs_2 = array![[1., 1.]];
         let train_targets_2 = array![0];
-        let train_inputs_3 = arr
+        let train_inputs_3 = array![[1., 2.],
+                                    [2., 1.]];
+        let train_targets_3 = array![1, 2];
+
+        // First, train().
+        ncm.train(&train_inputs_1.view(), &train_targets_1.view(), n_labels)
+           .e

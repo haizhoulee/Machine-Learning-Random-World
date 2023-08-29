@@ -296,4 +296,9 @@ mod tests {
         let mut ncm_alt = KNN::new(2);
 
         let train_inputs = array![[0., 0.],
-                     
+                                  [0., 1.],
+                                  [2., 2.],
+                                  [1., 1.],
+                                  [1., 2.],
+                                  [2., 1.]];
+        let train_targets = array![0, 1, 2, 0,

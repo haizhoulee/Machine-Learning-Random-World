@@ -288,4 +288,12 @@ mod tests {
         // Update with new data.
         ncm.update(&train_inputs_2.view(), &train_targets_2.view())
            .expect("Failed to train model");
-        ncm.update(&train_inputs_3.view(), &train_targets_3.
+        ncm.update(&train_inputs_3.view(), &train_targets_3.view())
+           .expect("Failed to train model");
+
+        // All this is identical to training the
+        // k-NN ncm on all data once.
+        let mut ncm_alt = KNN::new(2);
+
+        let train_inputs = array![[0., 0.],
+                     

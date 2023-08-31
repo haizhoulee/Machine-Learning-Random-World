@@ -301,4 +301,16 @@ mod tests {
                                   [1., 1.],
                                   [1., 2.],
                                   [2., 1.]];
-        let train_targets = array![0, 1, 2, 0,
+        let train_targets = array![0, 1, 2, 0, 1, 2];
+
+        ncm_alt.train(&train_inputs.view(), &train_targets.view(), n_labels)
+               .expect("Failed to train model");
+
+        assert!(ncm.train_inputs == ncm_alt.train_inputs);
+    }
+
+
+
+    #[test]
+    fn knn() {
+        let mut kn

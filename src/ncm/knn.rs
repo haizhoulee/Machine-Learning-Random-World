@@ -319,4 +319,11 @@ mod tests {
                                   [1., 0.],
                                   [0., 1.]];
         let train_targets = array![0, 0, 0];
-        let expected_scores = vec![4.47213595499958, 2., 2.4
+        let expected_scores = vec![4.47213595499958, 2., 2.414213562373095,
+                                   2.414213562373095];
+        let test_input = array![2., 2.];
+        let test_target = 0;
+        let n_labels = 1;
+
+        knn.train(&train_inputs.view(), &train_targets.view(), n_labels)
+     

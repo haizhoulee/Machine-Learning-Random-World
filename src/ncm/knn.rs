@@ -326,4 +326,9 @@ mod tests {
         let n_labels = 1;
 
         knn.train(&train_inputs.view(), &train_targets.view(), n_labels)
-     
+           .expect("Failed to train k-NN ncm");
+        let scores = knn.scores(&test_input.view(), test_target);
+
+        assert!(scores == expected_scores);
+    }
+}

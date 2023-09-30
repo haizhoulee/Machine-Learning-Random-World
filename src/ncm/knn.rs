@@ -313,4 +313,10 @@ mod tests {
 
     #[test]
     fn knn() {
-        let mut kn
+        let mut knn = KNN::new(2);
+
+        let train_inputs = array![[0., 0.],
+                                  [1., 0.],
+                                  [0., 1.]];
+        let train_targets = array![0, 0, 0];
+        let expected_scores = vec![4.47213595499958, 2., 2.4

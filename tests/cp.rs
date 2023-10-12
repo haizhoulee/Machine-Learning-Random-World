@@ -28,4 +28,11 @@ mod tests {
         let test_inputs = array![[2., 1.],
                                  [2., 2.]];
         let expected_pvalues = array![[0.25, 1.],
+                                      [0.25, 1.]];
+
+        let epsilon_1 = 0.3;
+        let epsilon_2 = 0.2;
+        let expected_preds_1 = array![[false, true],
+                                      [false, true]];
+        let expected_preds_2 = array![[true, true],
       

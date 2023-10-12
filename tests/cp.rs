@@ -23,4 +23,9 @@ mod tests {
                                   [0., 1.],
                                   [1., 1.],
                                   [2., 2.],
+                                  [1., 2.]];
+        let train_targets = array![0, 0, 0, 1, 1, 1];
+        let test_inputs = array![[2., 1.],
+                                 [2., 2.]];
+        let expected_pvalues = array![[0.25, 1.],
       

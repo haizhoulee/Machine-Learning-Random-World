@@ -35,4 +35,8 @@ mod tests {
         let expected_preds_1 = array![[false, true],
                                       [false, true]];
         let expected_preds_2 = array![[true, true],
-      
+                                      [true, true]];
+
+        cp.train(&train_inputs.view(), &train_targets.view()).unwrap();
+        let pvalues = cp.predict_confidence(&test_inputs.view()).unwrap();
+        println!("Expected p-values: {:?}", expected_pval

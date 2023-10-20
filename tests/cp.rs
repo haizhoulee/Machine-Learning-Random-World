@@ -54,4 +54,10 @@ mod tests {
         let ncm = KNN::new(k);
         let n_labels = 2;
         let seed = [0, 0];
-        let mut cp = C
+        let mut cp = CP::new_smooth(ncm, n_labels, Some(0.1), Some(seed));
+
+        let train_inputs = array![[0., 0.],
+                                  [1., 0.],
+                                  [0., 1.],
+                                  [1., 1.],
+                                  

@@ -44,4 +44,14 @@ mod tests {
         assert!(pvalues == expected_pvalues);
         cp.set_epsilon(epsilon_1);
         assert!(cp.predict(&test_inputs.view()).unwrap() == expected_preds_1);
-        cp.set_epsilon(epsilon_
+        cp.set_epsilon(epsilon_2);
+        assert!(cp.predict(&test_inputs.view()).unwrap() == expected_preds_2);
+    }
+
+    #[test]
+    fn smooth_cp() {
+        let k = 2;
+        let ncm = KNN::new(k);
+        let n_labels = 2;
+        let seed = [0, 0];
+        let mut cp = C

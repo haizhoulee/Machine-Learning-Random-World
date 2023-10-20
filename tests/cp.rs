@@ -39,4 +39,9 @@ mod tests {
 
         cp.train(&train_inputs.view(), &train_targets.view()).unwrap();
         let pvalues = cp.predict_confidence(&test_inputs.view()).unwrap();
-        println!("Expected p-values: {:?}", expected_pval
+        println!("Expected p-values: {:?}", expected_pvalues);
+        println!("P-values: {:?}", pvalues);
+        assert!(pvalues == expected_pvalues);
+        cp.set_epsilon(epsilon_1);
+        assert!(cp.predict(&test_inputs.view()).unwrap() == expected_preds_1);
+        cp.set_epsilon(epsilon_

@@ -71,3 +71,9 @@ mod tests {
         cp.train(&train_inputs.view(), &train_targets.view()).unwrap();
 
         let pvalues = cp.predict_confidence(&test_inputs.view()).unwrap();
+        println!("Expected p-values: {:?}.", expected_pvalues);
+        println!("Actual p-values: {:?}.", pvalues);
+        assert!(pvalues == expected_pvalues);
+    }
+
+   /// Tests CP in batch mode (i.e., train on training se

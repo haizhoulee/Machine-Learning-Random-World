@@ -76,4 +76,12 @@ mod tests {
         assert!(pvalues == expected_pvalues);
     }
 
-   /// Tests CP in batch mode (i.e., train on training se
+   /// Tests CP in batch mode (i.e., train on training set, predict
+   /// test set. For simplicity of the test, training and test sets are
+   /// identical.
+    #[test]
+    fn cp_batch_iris() {
+        let k = 3;
+        let ncm = KNN::new(k);
+        let n_labels = 3;
+        let mut cp = CP::new(

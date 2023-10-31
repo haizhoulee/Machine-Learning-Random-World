@@ -99,4 +99,11 @@ mod tests {
 
         println!("Expected p-values: {:?}.", expected_pvalues);
         println!("Actual p-values: {:?}.", pvalues);
-        assert!(pvalues == 
+        assert!(pvalues == expected_pvalues);
+    }
+
+    /// Tests CP in online mode (i.e., iteratively train on i points,
+    /// test on the i+1-th point, and add the i+1-th example into the
+    /// new training set.
+    #[test]
+    fn cp_onli

@@ -94,4 +94,9 @@ mod tests {
         cp.train(&train_inputs.view(), &train_targets.view())
           .expect("Failed to train the model");
 
-        let pvalues 
+        let pvalues = cp.predict_confidence(&train_inputs.view())
+                        .expect("Failed to predict");
+
+        println!("Expected p-values: {:?}.", expected_pvalues);
+        println!("Actual p-values: {:?}.", pvalues);
+        assert!(pvalues == 

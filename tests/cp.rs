@@ -106,4 +106,11 @@ mod tests {
     /// test on the i+1-th point, and add the i+1-th example into the
     /// new training set.
     #[test]
-    fn cp_onli
+    fn cp_online_iris() {
+        let k = 3;
+        let ncm = KNN::new(k);
+        let n_labels = 3;
+        let mut cp = CP::new(ncm, n_labels, None);
+
+        let (train_inputs, train_targets) = load_data("tests/data/iris.csv")
+                           

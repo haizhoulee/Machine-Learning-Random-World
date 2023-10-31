@@ -88,4 +88,10 @@ mod tests {
 
         let (train_inputs, train_targets) = load_data("tests/data/iris.csv")
                                             .expect("Failed to load data");
-        let expected_pvalues = load_pvalues("tests/data/iris-ba
+        let expected_pvalues = load_pvalues("tests/data/iris-batch-expected.csv")
+                                    .expect("Failed to load p-values");
+
+        cp.train(&train_inputs.view(), &train_targets.view())
+          .expect("Failed to train the model");
+
+        let pvalues 

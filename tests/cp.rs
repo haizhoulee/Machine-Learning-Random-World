@@ -113,4 +113,9 @@ mod tests {
         let mut cp = CP::new(ncm, n_labels, None);
 
         let (train_inputs, train_targets) = load_data("tests/data/iris.csv")
-                           
+                                            .expect("Failed to load data");
+        let expected_pvalues = load_pvalues("tests/data/iris-online-expected.csv")
+                                    .expect("Failed to load p-values");
+
+        // Train on first data point.
+        let x = tr

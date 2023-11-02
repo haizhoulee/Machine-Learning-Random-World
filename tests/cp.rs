@@ -123,4 +123,8 @@ mod tests {
         cp.train(&x, &array![y].view())
           .expect("Failed to train CP");
 
-        // Update and predict the remaining points in on-li
+        // Update and predict the remaining points in on-line mode.
+        for (x, y, exp_pvals) in multizip((train_inputs.outer_iter().skip(1),
+                                           train_targets.iter().skip(1),
+                                           expected_pvalues.outer_iter())) {
+            let x_ = x.into

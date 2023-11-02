@@ -118,4 +118,9 @@ mod tests {
                                     .expect("Failed to load p-values");
 
         // Train on first data point.
-        let x = tr
+        let x = train_inputs.slice(s![0..1, ..]);
+        let y = train_targets[[0]];
+        cp.train(&x, &array![y].view())
+          .expect("Failed to train CP");
+
+        // Update and predict the remaining points in on-li

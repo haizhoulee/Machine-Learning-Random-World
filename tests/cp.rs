@@ -127,4 +127,9 @@ mod tests {
         for (x, y, exp_pvals) in multizip((train_inputs.outer_iter().skip(1),
                                            train_targets.iter().skip(1),
                                            expected_pvalues.outer_iter())) {
-            let x_ = x.into
+            let x_ = x.into_shape((1, x.len())).unwrap();
+            let preds = cp.predict_confidence(&x_)
+                          .expect("Failed to predict");
+            println!("Expected: {:?}", exp_pvals);
+            println!("P-values: {:?}", preds);
+            asse

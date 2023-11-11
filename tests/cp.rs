@@ -132,4 +132,10 @@ mod tests {
                           .expect("Failed to predict");
             println!("Expected: {:?}", exp_pvals);
             println!("P-values: {:?}", preds);
-            asse
+            assert!(preds.row(0) == exp_pvals);
+
+            cp.update(&x_, &array![*y].view())
+              .expect("Failed to update CP");
+        }
+    }
+}
